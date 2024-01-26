@@ -51,6 +51,7 @@ class ReportWorklog : CliktCommand() {
             val daysUntilCurrentDate = startDate.until(currentDate, ChronoUnit.DAYS) + 1
             val meetingsTime = TimeUnit.MINUTES.toSeconds(15 * 2 * daysUntilCurrentDate)
             val expectedTotalTime = TimeUnit.HOURS.toSeconds(daysUntilCurrentDate * 8) - meetingsTime
+            val timeDifferenceBetweenExpectedAndActual = expectedTotalTime - totalTime
             val issuesWithTimeMessage = issuesWithTime.joinToString("\n") {
                 val key = it.first.key
                 val summary = it.first.fields["summary"]!!
@@ -62,6 +63,7 @@ class ReportWorklog : CliktCommand() {
                 Meetings take ${secondsToFullTime(meetingsTime)}
                 Total time should be ${secondsToFullTime(expectedTotalTime)} (including today, minus meetings)
                 Total time spend in issues: ${secondsToFullTime(totalTime)}
+                Time difference: ${secondsToFullTime(timeDifferenceBetweenExpectedAndActual)}
                 Issue list with time:
                 """.trimIndent()
             )
