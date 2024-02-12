@@ -9,5 +9,5 @@ data class SearchResult(
     val maxResults: Int,
     val issues: List<Issue>,
     @Serializable(with = ExpandListSerializer::class)
-    val expand: List<Expand>,
+    val expand: List<Expand>?,
 )
